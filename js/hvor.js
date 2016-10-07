@@ -1,8 +1,11 @@
 'use strict';
 
 $(function() {
+	$.support.cors= true; //pga. IE
 
-  var output = document.getElementById("out");
+  var output = $("#content");
+  var row= $("<div class='row'></div>");
+  output.append(row);
 
   if (!navigator.geolocation){
     output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
@@ -18,7 +21,7 @@ $(function() {
     var img = new Image();
     img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
 
-    output.appendChild(img);
+    output.append(img);
     visdata(longitude, latitude);
   };
 
@@ -36,21 +39,37 @@ $(function() {
 	}
 
 	function visdata(x,y) {
+		var antal= 0;
+		var options= [];
+		var data= {x: x, y: y}; 
+    var dataType= "jsonp";
+    var jsonp= true;
+    if (corssupported()) {
+      dataType= "json";
+      jsonp= false;
+    }
+    // sogn
+		options.push({});
+    options[antal].url= encodeURI("http://dawa.aws.dk/sogne/reverse");
+    options[antal].data= data;
+    options[antal].dataType= dataType;
+    options[antal].jsonp= jsonp;
+    antal++;
+
+    // kommune
+		options.push({});
+    options[antal].url= encodeURI("http://dawa.aws.dk/kommuner/reverse");
+    options[antal].data= data;
+    options[antal].dataType= dataType;
+    options[antal].jsonp= jsonp;
+    antal++;
+
 		var promises = [];
-	    var options= {};
-	    options.url= encodeURI("http://dawa.aws.dk/sogne/reverse");
-	    options.data= {x: x, y: y};
-	    if (corssupported()) {
-	      options.dataType= "json";
-	      options.jsonp= false;
-	    }
-	    else {        
-	      options.dataType= "jsonp";
-	    }
-	    promises.push($.ajax(options));
+		for (var i= 0; i<options.length; i++)
+    	promises.push($.ajax(options[i]));
 	  $.when.apply($, promises).then(function() {
 	    for (var i = 0; i < promises.length; i++) {
-	      output.innerHTML= arguments[i].kode + " " + arguments[i].navn;
+	      row.append("<div  class='col-md-3'>" + arguments[i][0].kode + " " + arguments[i][0].navn + "</div>");
 	    } 
 	  }, function() {
 	    for (var i = 0; i < arguments.length; i++) {
