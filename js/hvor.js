@@ -209,7 +209,7 @@ $(function() {
 	}
 
 	function formatdata(titel,id) {
-		return function (data) { return "<div  class='col-md-3'><h3>" + titel + "</h3><a id='" + id + "'>" + data.navn + " (" + data.kode + ")" + "</a></div>"};
+		return function (data) { return "<div  class='col-md-3'><h3>" + titel + "</h3><p><a id='" + id + "'>" + data.navn + " (" + data.kode + ")" + "</a></p></div>"};
 	}
 
 	function visdata(x,y) {
