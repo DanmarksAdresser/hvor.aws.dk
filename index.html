@@ -20,6 +20,8 @@
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -51,191 +53,6 @@
 
     <div id="content" class="container">
     </div>
-    
-    <div class="container">
-      <h1 class=page-header>Web API Reference</h1>
-      <div class="row">
-        <div class="col-md-3">
-          <h3>Generelt</h3>
-          <a href="">Baseadresse</a><br/>
-          <a href="">Dataformater</a><br/>
-          <a href="">Tidsformat</a><br/>
-          <a href="">Tekstsøgning</a><br/>
-          <a href="">Autocomplete</a><br/>
-          <a href="">Versionering</a><br/>
-          <a href="">Kompression</a><br/>
-          <a href="">Cross Origin Resource Sharing</a><br/>
-          <a href="">Caching</a><br/>
-          <a href="">Paginering</a><br/>
-          <a href="">Fejlhåndtering</a><br/>
-          <a href="">Formatering</a><br/>
-          <a href="">Flerværdisøgning</a><br/>
-          <a href="">Søgning på ingen værdi</a><br/>
-          <a href="">Max antal samtidige requests</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Adresser</h3>
-          <a href="">Søgning</a><br/>
-          <a href="">Opslag</a><br/>
-          <a href="">Databeskrivelse</a><br/>
-          <a href="">Autocomplete</a><br/>
-          <a href="">Datavask</a><br/>
-          <a href="">Historik</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Adgangsadresser</h3>
-          <a href="">Søgning</a><br/>
-          <a href="">Opslag</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Databeskrivelse</a><br/>
-          <a href="">Autocomplete</a><br/>
-          <a href="">Datavask</a><br/>
-          <a href="">Historik</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Vejnavne</h3>
-          <a href="">Søgning</a><br/>
-          <a href="">Opslag</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Databeskrivelse</a><br/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <h3>Vejstykker</h3>
-          <a href="">Søgning</a><br/>
-          <a href="">Opslag</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Autocomplete</a><br/>
-          <a href="">Naboer</a><br/>
-          <a href="">Databeskrivelse</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Supplerende bynavne</h3>
-          <a href="">Søgning</a><br/>
-          <a href="">Opslag</a><br/>
-          <a href="">Autocomplete</a><br/>
-          <a href="">Databeskrivelse</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Postnumre</h3>
-          <a href="">Postnummersøgning</a><br/>
-          <a href="">Postnummeropslag</a><br/>
-          <a href="">Postnummer autocomplete</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Beskrivelse af postnummerdata</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Autocomplete</h3>
-          <a href="">Autocomplete</a><br/>
-          <a href="">Beskrivelse af autocompletedata</a><br/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <h3>Replikering</h3>
-          <a href="">Introduktion</a><br/>
-          <a href="">Etablering af lokalt kopiregister</a><br/>
-          <a href="">Vedligeholdelse af lokalt kopiregister</a><br/>
-          <a href="">Detaljer</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Regioner</h3>
-          <a href="">Regionsøgning</a><br/>
-          <a href="">Regionopslag</a><br/>
-          <a href="">Region autocomplete</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Beskrivelse af regiondata</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Kommuner</h3>
-          <a href="">Kommunesøgning</a><br/>
-          <a href="">Kommuneopslag</a><br/>
-          <a href="">Kommune autocomplete</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Beskrivelse af kommunedata</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Sogne</h3>
-          <a href="">Sognesøgning</a><br/>
-          <a href="">Sogneopslag</a><br/>
-          <a href="">Sogne autocomplete</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Beskrivelse af sognedata</a><br/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <h3>Retskredse</h3>
-          <a href="">Retskredsesøgning</a><br/>
-          <a href="">Retskredseopslag</a><br/>
-          <a href="">Retskredse autocomplete</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Beskrivelse af retskredsedata</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Politikredse</h3>
-          <a href="">Politikredsesøgning</a><br/>
-          <a href="">Politikredseopslag</a><br/>
-          <a href="">Politikredse autocomplete</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Beskrivelse af politiskredsedata</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Opstillingskredse</h3>
-          <a href="">Opstillingskredsesøgning</a><br/>
-          <a href="">Opstillingskredseopslag</a><br/>
-          <a href="">Opstillingskredse autocomplete</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Beskrivelse af opstillingskredsedata</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Valglandsdele</h3>
-          <a href="">Valglandsdelesøgning</a><br/>
-          <a href="">Valglandsdeleopslag</a><br/>
-          <a href="">Valglandsdele autocomplete</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Beskrivelse af valglandsdeledata</a><br/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <h3>Storkredse</h3>
-          <a href="">Storkredsesøgning</a><br/>
-          <a href="">Storkredseopslag</a><br/>
-          <a href="">Storkredse autocomplete</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Beskrivelse af storkredsedata</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Ejerlav</h3>
-          <a href="">Ejerlavssøgning</a><br/>
-          <a href="">Ejerlavsopslag</a><br/>
-          <a href="">Ejerlavs autocomplete</a><br/>
-          <a href="">Beskrivelse af ejerlavsdata</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Jordstykker</h3>
-          <a href="">Jordstykkesøgning</a><br/>
-          <a href="">Jordstykkeopslag</a><br/>
-          <a href="">Jordstykke autocomplete</a><br/>
-          <a href="">Reverse geokodning</a><br/>
-          <a href="">Beskrivelse af jordstykkedata</a><br/>
-        </div>
-        <div class="col-md-3">
-          <h3>Bebyggelser</h3>
-          <a href="">Bebyggelsesøgning</a><br/>
-          <a href="">Bebyggelseopslag</a><br/>
-          <a href="">Beskrivelse af bebyggelsedata</a><br/>
-        </div>
-      </div>
-
-      <h1 class=page-header id="generelt">Generelt</h1>
-      <h1 class=page-header id="adresser">Adresser</h1>
-      <h1 class=page-header id="adgangsadresser">Adgangsadresser</h1>
-    </div>
-    
-
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -243,6 +60,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
     <script src="js/hvor.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
