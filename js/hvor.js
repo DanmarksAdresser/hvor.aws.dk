@@ -4,8 +4,7 @@ $(function() {
 	$.support.cors= true; //pga. IE
 
   var output = $("#content");
-  var row= $("<div class='row'></div>");
-  output.append(row);
+  var row= null;
 
 
   var latitude, longitude;
@@ -110,6 +109,7 @@ $(function() {
 			 $("#"+sel).click(function(e) {
   			e.preventDefault();
 		    var mapid=  sel + "map";
+				if ($('#'+mapid).length!==0) return;
 		    $(event.target ).closest( "div" ).append("<div class='map' id='" + mapid + "'>Kort</div>");
 		    var map = L.map(mapid);
 		    var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'Map data &copy; OpenStreetMap contributors'});
@@ -148,7 +148,8 @@ $(function() {
 					return function(e) {
 		  			e.preventDefault();
 				    var mapid=  data[i].type + "map";
-				    $(event.target ).closest( "div" ).append("<div class='map' id='" + mapid + "'>Kort</div>");
+				    if ($('#'+mapid).length!==0) return;
+				    $(event.target ).closest( "div" ).append("<div class='map' id='" + mapid + "'></div>");
 				    var map = L.map(mapid);
 				    var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'Map data &copy; OpenStreetMap contributors'});
 		  			osm.addTo(map);
@@ -181,35 +182,43 @@ $(function() {
 		}
 	}
 
+	var colcount= 0;
+	function coloutput(tekst) {		
+  	if (colcount%4 === 0) {
+			row= $("<div class='row'></div>");
+			output.append(row);
+    }
+    row.append(tekst);
+  	colcount++;	    		
+	}
+
 	function formatadresse(data) {
-	 	return "<div  class='col-md-3'><h3>Nærmeste adresse</h3><p><a id='adresse'>" + data.vejstykke.navn + " " + data.husnr + ", " + data.postnummer.nr + " " + data.postnummer.navn + "</a></p></div>";
+	 	coloutput("<div  class='col-md-3'><h3>Nærmeste adresse</h3><p><a id='adresse'>" + data.vejstykke.navn + " " + data.husnr + ", " + data.postnummer.nr + " " + data.postnummer.navn + "</a></p></div>");
 	}
 
 	function formatpostnummer(data) {
-		return "<div  class='col-md-3'><h3>Postnummer</h3><p><a id='postnummer'>" + data.nr + " " + data.navn + "</a></p></div>";
+		coloutput("<div  class='col-md-3'><h3>Postnummer</h3><p><a id='postnummer'>" + data.nr + " " + data.navn + "</a></p></div>");
 	}
 	function formatstorkreds(data) {
-		return "<div class='col-md-3'><h3>Storkreds</h3><p><a id='storkreds'>" + data.navn + " (" + data.nummer + ")" + "</a></p></div>";
+		coloutput("<div class='col-md-3'><h3>Storkreds</h3><p><a id='storkreds'>" + data.navn + " (" + data.nummer + ")" + "</a></p></div>");
 	}
 
 	function formatvalglandsdel(data) {
-		return "<div class='col-md-3'><h3>Valglandsdel</h3><p><a id='valglandsdel'>" + data.navn + " (" + data.bogstav + ")" + "</a></p></div>";
+		coloutput("<div class='col-md-3'><h3>Valglandsdel</h3><p><a id='valglandsdel'>" + data.navn + " (" + data.bogstav + ")" + "</a></p></div>");
 	}
 
 	function formatjordstykke(data) {
-		return "<div class='col-md-3'><h3>Jordstykke</h3><p><a id='jordstykke'>" + + data.ejerlav.navn + " " + data.ejerlav.kode + " " +data.matrikelnr + "</a></p></div>";
+		coloutput("<div class='col-md-3'><h3>Jordstykke</h3><p><a id='jordstykke'>" + (data.ejerlav.navn?data.ejerlav.navn+" ":"") + data.ejerlav.kode + " " +data.matrikelnr + "</a></p></div>");
 	}
 
 	function formatbebyggelse(data) {
-		var tekst= "";
 		for (var i= 0; i<data.length;i++) {
-			tekst= tekst + "<div class='col-md-3'><h3>" + capitalizeFirstLetter(data[i].type) + "</h3><p><a id='" + data[i].type + "'>" + data[i].navn + "</a></p></div>";
+			coloutput("<div class='col-md-3'><h3>" + capitalizeFirstLetter(data[i].type) + "</h3><p><a id='" + data[i].type + "'>" + data[i].navn + "</a></p></div>");
 		}
-		return tekst;
 	}
 
 	function formatdata(titel,id) {
-		return function (data) { return "<div  class='col-md-3'><h3>" + titel + "</h3><p><a id='" + id + "'>" + data.navn + " (" + data.kode + ")" + "</a></p></div>"};
+		return function (data) { coloutput("<div  class='col-md-3'><h3>" + titel + "</h3><p><a id='" + id + "'>" + data.navn + " (" + data.kode + ")" + "</a></p></div>")};
 	}
 
 	function visdata(x,y) {
@@ -352,7 +361,7 @@ $(function() {
     	promises.push($.ajax(options[i]));
 	  $.when.apply($, promises).then(function() {
 	    for (var i = 0; i < promises.length; i++) {
-	      row.append(options[i].format(arguments[i][0]));
+	      options[i].format(arguments[i][0]);
 	      options[i].clickevent(arguments[i][0]);
 	    } 
 	  }, function() {
