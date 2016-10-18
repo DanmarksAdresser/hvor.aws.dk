@@ -226,9 +226,11 @@ $(function() {
 		var options= [];
 		var data= {x: x, y: y};
 
+		var host= "https://dawa.aws.dk/";
+
     // nærmeste adresse
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/adgangsadresser/reverse");
+    options[antal].url= encodeURI(host+"adgangsadresser/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -238,7 +240,7 @@ $(function() {
 
     // nærmeste vejstykke
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/vejstykker/reverse");
+    options[antal].url= encodeURI(host+"vejstykker/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -248,7 +250,7 @@ $(function() {
 
     // postnummer
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/postnumre/reverse");
+    options[antal].url= encodeURI(host+"postnumre/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -258,7 +260,7 @@ $(function() {
 
     // bebyggelser
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/bebyggelser");
+    options[antal].url= encodeURI(host+"bebyggelser");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -268,7 +270,7 @@ $(function() {
 
     // jordstykke
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/jordstykker/reverse");
+    options[antal].url= encodeURI(host+"jordstykker/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -278,7 +280,7 @@ $(function() {
 
     // sogn
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/sogne/reverse");
+    options[antal].url= encodeURI(host+"sogne/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -288,7 +290,7 @@ $(function() {
 
     // kommune
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/kommuner/reverse");
+    options[antal].url= encodeURI(host+"kommuner/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -298,7 +300,7 @@ $(function() {
 
     // region
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/regioner/reverse");
+    options[antal].url= encodeURI(host+"regioner/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -308,7 +310,7 @@ $(function() {
 
     // retskreds
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/retskredse/reverse");
+    options[antal].url= encodeURI(host+"retskredse/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -318,7 +320,7 @@ $(function() {
 
     // politikreds
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/politikredse/reverse");
+    options[antal].url= encodeURI(host+"politikredse/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -328,7 +330,7 @@ $(function() {
 
     // opstillingskreds
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/opstillingskredse/reverse");
+    options[antal].url= encodeURI(host+"opstillingskredse/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -338,7 +340,7 @@ $(function() {
 
     // storkreds
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/storkredse/reverse");
+    options[antal].url= encodeURI(host+"storkredse/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -348,7 +350,7 @@ $(function() {
 
     // valglandsdel
 		options.push({});
-    options[antal].url= encodeURI("http://dawa.aws.dk/valglandsdele/reverse");
+    options[antal].url= encodeURI(host+"valglandsdele/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
