@@ -3,6 +3,12 @@
 $(function() {
 	$.support.cors= true; //pga. IE
 
+	if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+             .register('./service-worker.js')
+             .then(function() { console.log('Service Worker Registered'); });
+  }
+
   var output = $("#content");
   var row= null;
 
@@ -367,9 +373,7 @@ $(function() {
 	      options[i].clickevent(arguments[i][0]);
 	    } 
 	  }, function() {
-	    for (var i = 0; i < arguments.length; i++) {
-	      alert(arguments[i]);
-	    }
+	      alert('Kald til DAWA fejlede: ' + arguments[1] + "  "  + arguments[2]);
 	  });
 	}
 
