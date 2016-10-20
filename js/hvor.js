@@ -118,7 +118,7 @@ $(function() {
 				if ($('#'+mapid).length!==0) return;
 		    $(event.target ).closest( "div" ).append("<div class='map' id='" + mapid + "'>Kort</div>");
 		    var map = L.map(mapid);
-		    var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'Map data &copy; OpenStreetMap contributors'});
+		    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'Map data &copy; OpenStreetMap contributors'});
   			osm.addTo(map);
   			var marker = L.marker([latitude,longitude]).addTo(map);
   			var options= {};
@@ -157,7 +157,7 @@ $(function() {
 				    if ($('#'+mapid).length!==0) return;
 				    $(event.target ).closest( "div" ).append("<div class='map' id='" + mapid + "'></div>");
 				    var map = L.map(mapid);
-				    var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'Map data &copy; OpenStreetMap contributors'});
+				    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'Map data &copy; OpenStreetMap contributors'});
 		  			osm.addTo(map);
 		  			var marker = L.marker([latitude,longitude]).addTo(map);
 		  			var options= {};
