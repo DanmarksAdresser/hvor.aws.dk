@@ -367,14 +367,23 @@ $(function() {
 		var promises = [];
 		for (var i= 0; i<options.length; i++)
     	promises.push($.ajax(options[i]));
-	  $.when.apply($, promises).then(function() {
-	    for (var i = 0; i < promises.length; i++) {
-	      options[i].format(arguments[i][0]);
-	      options[i].clickevent(arguments[i][0]);
-	    } 
-	  }, function() {
-	      alert('Kald til DAWA fejlede: ' + arguments[1] + "  "  + arguments[2]);
-	  });
+    begrænssamtidige(promises,0,10);
+
+    function begrænssamtidige(promises,start,længde) {
+      if (start >= promises.length) return;
+      var l= (promises.length-start<længde?promises.length-start:længde); 
+      var subpromises= promises.slice(start,start+l);
+  	  $.when.apply($, subpromises).then(function() {
+  	    for (var i = 0; i < subpromises.length; i++) {
+  	      options[i+start].format(arguments[i][0]);
+  	      options[i+start].clickevent(arguments[i][0]);
+  	    } 
+        begrænssamtidige(promises,start+længde,længde);
+  	  }, function() {
+  	      alert('Kald til DAWA fejlede: ' + arguments[1] + "  "  + arguments[2]);
+  	  });
+    }
+
 	}
 
 });
