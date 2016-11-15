@@ -374,7 +374,10 @@ $(function() {
     begrænssamtidige(promises,0,10);
 
     function begrænssamtidige(promises,start,længde) {
-      if (start >= promises.length) return;
+      if (start >= promises.length) {        
+        $('.loader').hide();
+        return;
+      }
       var l= (promises.length-start<længde?promises.length-start:længde); 
       var subpromises= promises.slice(start,start+l);
   	  $.when.apply($, subpromises).then(function() {
@@ -384,7 +387,7 @@ $(function() {
   	    } 
         begrænssamtidige(promises,start+længde,længde);
   	  }, function() {
-  	      alert('Kald til DAWA fejlede: ' + arguments[1] + "  "  + arguments[2]);
+        infoout("<p>Kald til DAWA fejlede: " + arguments[1] + "  "  + arguments[2] + "</p>");
   	  });
     }
 
