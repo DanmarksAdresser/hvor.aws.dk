@@ -1,4 +1,4 @@
-var cacheName = 'weatherPWA-step-6-1';
+var cacheName = 'Hvor-v1.0.0';
 var filesToCache = [];
 
 self.addEventListener('install', function(e) {

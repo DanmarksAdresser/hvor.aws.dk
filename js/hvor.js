@@ -12,6 +12,10 @@ $(function() {
   var output = $("#content");
   var row= null;
 
+  var info= $("#info");
+  function infoout(tekst) {
+    info.append(tekst); 
+  }
 
   var latitude, longitude;
 
@@ -23,15 +27,15 @@ $(function() {
   function success(position) {
     latitude  = position.coords.latitude;
     longitude = position.coords.longitude;
-
+    infoout("<p>Din placering er ("+latitude + ", " + longitude +")</p>");
     visdata(longitude, latitude);
   };
 
   function error(error) {
-    output.innerHTML = "Unable to retrieve your location";
-    alert('ERROR(' + error.code + '): ' + error.message);
+    infoout("<p>Kan ikke finde din placering ("+error.code + " " + error.message +")</p>");
   };
 
+  infoout("<p>Finder din placering ... </p>");
   navigator.geolocation.getCurrentPosition(success, error);
 
 	function corssupported() {
