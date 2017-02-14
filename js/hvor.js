@@ -192,6 +192,39 @@ $(function() {
 		}
 	}
 
+  var anvendelseskoder= {};
+  function initanvendelseskoder() {
+    anvendelseskoder[110]= "Stuehus til landbrugsejendom";
+    anvendelseskoder[120]= "Fritliggende eenfamilieshus (parcelhus)";
+    anvendelseskoder[130]= "Række-, kæde-, eller dobbelthus (lodret adskillelse mellem enhederne)";
+    anvendelseskoder[140]= "Etageboligbebyggelse (flerfamiliehus, herunder to-familiehus (vandret adskillelse mellem enhederne)";
+    anvendelseskoder[150]= "Kollegium";
+    anvendelseskoder[160]= "Døgninstitution (plejehjem, alderdomshjem, børne- eller ungdomshjem)";
+    anvendelseskoder[190]= "Anden bygning til helårsbeboelse";
+    anvendelseskoder[210]= "Bygning til erhvervsmæssig produktion vedrørende landbrug, gartneri, råstofudvinding o. lign";
+    anvendelseskoder[220]= "Bygning til erhvervsmæssig produktion vedrørende industri, håndværk m.v. (fabrik, værksted o. lign.)";
+    anvendelseskoder[230]= "El-, gas-, vand- eller varmeværk, forbrændingsanstalt m.v.";
+    anvendelseskoder[290]= "Anden bygning til landbrug, industri etc.";
+    anvendelseskoder[310]= "Transport- og garageanlæg (fragtmandshal, lufthavnsbygning, banegårdsbygning, parkeringshus). Garage med plads til et eller to køretøjer registreres med anvendelseskode 910";
+    anvendelseskoder[320]= "Bygning til kontor, handel, lager, herunder offentlig administration";
+    anvendelseskoder[330]= "Bygning til hotel, restaurant, vaskeri, frisør og anden servicevirksomhed";
+    anvendelseskoder[390]= "Anden bygning til transport, handel etc.";
+    anvendelseskoder[410]= "Bygning til biograf, teater, erhvervsmæssig udstilling, bibliotek, museum, kirke o. lign.";
+    anvendelseskoder[420]= "Bygning til undervisning og forskning (skole, gymnasium, forskningslaboratorium o. lign.)";
+    anvendelseskoder[430]= "Bygning til hospital, sygehjem, fødeklinik o. lign.";
+    anvendelseskoder[440]= "Bygning til daginstitution";
+    anvendelseskoder[490]= "Bygning til anden institution, herunder kaserne, fængsel o. lign.";
+    anvendelseskoder[510]= "Sommerhus";
+    anvendelseskoder[520]= "Bygning til ferieformål m.v., bortset fra sommerhus (feriekoloni, vandrehjem o. lign.)";
+    anvendelseskoder[530]= "Bygning i forbindelse med idrætsudøvelse (klubhus, idrætshal, svømmehal o. lign.)";
+    anvendelseskoder[540]= "Kolonihavehus";
+    anvendelseskoder[590]= "Anden bygning til fritidsformål";
+    anvendelseskoder[910]= "Garage med plads til et eller to køretøjer";
+    anvendelseskoder[920]= "Carport";
+    anvendelseskoder[930]= "Udhus";
+  }
+  initanvendelseskoder();
+
 	var colcount= 0;
 	function coloutput(tekst) {		
   	if (colcount%4 === 0) {
@@ -203,8 +236,12 @@ $(function() {
 	}
 
 	function formatadresse(data) {
-	 	coloutput("<div  class='col-md-3'><h3>Nærmeste adresse</h3><p><a id='adresse'>" + data.vejstykke.navn + " " + data.husnr + ", " + data.postnummer.nr + " " + data.postnummer.navn + "</a></p></div>");
-	}
+    coloutput("<div  class='col-md-3'><h3>Nærmeste adresse</h3><p><a id='adresse'>" + data.vejstykke.navn + " " + data.husnr + ", " + data.postnummer.nr + " " + data.postnummer.navn + "</a></p></div>");
+  }
+
+  function formatbygning(data) {
+    coloutput("<div  class='col-md-3'><h3>Nærmeste bygning</h3><p><a id='bygning'>" + anvendelseskoder[data[0].BYG_ANVEND_KODE] + " fra " + data[0].OPFOERELSE_AAR + "</a></p></div>");
+  }
 
 	function formatpostnummer(data) {
 		coloutput("<div  class='col-md-3'><h3>Postnummer</h3><p><a id='postnummer'>" + data.nr + " " + data.navn + "</a></p></div>");
@@ -359,13 +396,23 @@ $(function() {
     antal++;
 
     // valglandsdel
-		options.push({});
+    options.push({});
     options[antal].url= encodeURI(host+"valglandsdele/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
     options[antal].format= formatvalglandsdel;
     options[antal].clickevent= clickevent('valglandsdel');
+    antal++;
+
+    // nærmeste bygning
+    options.push({});
+    options[antal].url= encodeURI("http://dawa-p2.aws.dk/"+"ois/bygninger");
+    options[antal].data= data;
+    options[antal].dataType= dataType;
+    options[antal].jsonp= jsonp;
+    options[antal].format= formatbygning;
+    options[antal].clickevent= clickevent('bygning');
     antal++;
 
 		var promises = [];
