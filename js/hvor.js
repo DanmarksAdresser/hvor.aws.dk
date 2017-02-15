@@ -406,14 +406,14 @@ $(function() {
     antal++;
 
     // nærmeste bygning
-    options.push({});
-    options[antal].url= encodeURI("http://dawa-p2.aws.dk/"+"ois/bygninger");
-    options[antal].data= data;
-    options[antal].dataType= dataType;
-    options[antal].jsonp= jsonp;
-    options[antal].format= formatbygning;
-    options[antal].clickevent= clickevent('bygning');
-    antal++;
+    // options.push({});
+    // options[antal].url= encodeURI("http://dawa-p2.aws.dk/"+"ois/bygninger");
+    // options[antal].data= data;
+    // options[antal].dataType= dataType;
+    // options[antal].jsonp= jsonp;
+    // options[antal].format= formatbygning;
+    // options[antal].clickevent= clickevent('bygning');
+    // antal++;
 
 		var promises = [];
 		for (var i= 0; i<options.length; i++)
