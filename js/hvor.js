@@ -127,7 +127,12 @@ $(function() {
   			var marker = L.marker([latitude,longitude]).addTo(map);
   			var options= {};
 		    options.data= {format: 'geojson'};
-		    options.url= data.href;
+        if (Array.isArray(data)) {          
+          options.url= data[0].href;
+        }
+        else {          
+          options.url= data.href;
+        }
     		options.dataType= dataType;
     		options.jsonp= jsonp;
 		    $.ajax(options)
@@ -241,6 +246,10 @@ $(function() {
 
   function formatbygning(data) {
     coloutput("<div  class='col-md-3'><h3>Nærmeste bygning</h3><p><a id='bygning'>" + anvendelseskoder[data[0].BYG_ANVEND_KODE] + " fra " + data[0].OPFOERELSE_AAR + "</a></p></div>");
+  }
+
+  function formattekniskeanlaeg(data) {
+    coloutput("<div  class='col-md-3'><h3>Nærmeste tekniske anlæg</h3><p><a id='tekniskeanlaeg'>Etableret " + data[0].Etableringsaar + "</a></p></div>");
   }
 
 	function formatpostnummer(data) {
@@ -406,14 +415,24 @@ $(function() {
     antal++;
 
     // nærmeste bygning
-    // options.push({});
-    // options[antal].url= encodeURI("http://dawa-p2.aws.dk/"+"ois/bygninger");
-    // options[antal].data= data;
-    // options[antal].dataType= dataType;
-    // options[antal].jsonp= jsonp;
-    // options[antal].format= formatbygning;
-    // options[antal].clickevent= clickevent('bygning');
-    // antal++;
+    options.push({});
+    options[antal].url= encodeURI("http://dawa-p2.aws.dk/"+"ois/bygninger");
+    options[antal].data= data;
+    options[antal].dataType= dataType;
+    options[antal].jsonp= jsonp;
+    options[antal].format= formatbygning;
+    options[antal].clickevent= clickevent('bygning');
+    antal++;
+
+    // nærmeste bygning
+    options.push({});
+    options[antal].url= encodeURI("http://dawa-p2.aws.dk/"+"ois/tekniskeanlaeg");
+    options[antal].data= data;
+    options[antal].dataType= dataType;
+    options[antal].jsonp= jsonp;
+    options[antal].format= formattekniskeanlaeg;
+    options[antal].clickevent= clickevent('tekniskeanlaeg');
+    antal++;
 
 		var promises = [];
 		for (var i= 0; i<options.length; i++)
