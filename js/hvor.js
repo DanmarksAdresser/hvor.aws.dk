@@ -230,6 +230,40 @@ $(function() {
   }
   initanvendelseskoder();
 
+  var klassifikationskoder= {};
+  function initklassifikationskoder() {
+    klassifikationskoder[1110]= "Tank (Produkt på væskeform)";
+    klassifikationskoder[1120]= "Silo (Produkt på fast form)";
+    klassifikationskoder[1130]= "Gasbeholder (Produkt på gasform)";
+    klassifikationskoder[1140]= "Affaldsbeholder";
+    klassifikationskoder[1210]= "Vindmølle (elproducerende)";
+    klassifikationskoder[1220]= "Slanger til jordvarme";
+    klassifikationskoder[1230]= "Solvarme-/ solcelleanlæg";
+    klassifikationskoder[1240]= "Nødstrømsforsyningsanlæg";
+    klassifikationskoder[1250]= "Transformerstation";
+    klassifikationskoder[1260]= "Elskab";
+    klassifikationskoder[1265]= "Naturgasfyr";
+    klassifikationskoder[1270]= "Andet energiproducerende eller - distribuerende anlæg";
+    klassifikationskoder[1310]= "Vandtårn";
+    klassifikationskoder[1320]= "Pumpestation";
+    klassifikationskoder[1330]= "Swimmingpool";
+    klassifikationskoder[1340]= "Private rensningsanlæg f.eks. pileanlæg, nedsivningsanlæg";
+    klassifikationskoder[1350]= "Offentlige rensningsanlæg";
+    klassifikationskoder[1360]= "Regnvandsanlæg";
+    klassifikationskoder[1905]= "Legeplads";
+    klassifikationskoder[1910]= "Teknikhus";
+    klassifikationskoder[1915]= "Døgnpostboks";
+    klassifikationskoder[1920]= "Køleanlæg (herunder aircondition)";
+    klassifikationskoder[1925]= "Kunstværk (springvand, mindesmærker m.v.)";
+    klassifikationskoder[1930]= "Sirene / mast med sirene";
+    klassifikationskoder[1935]= "Skilt";
+    klassifikationskoder[1940]= "Antenne / mast fx tv, radio- og telekommunikation";
+    klassifikationskoder[1945]= "Dambrug";
+    klassifikationskoder[1950]= "Møddingsanlæg";
+    klassifikationskoder[1955]= "Andet teknisk anlæg";
+  }
+  initklassifikationskoder();
+
 	var colcount= 0;
 	function coloutput(tekst) {		
   	if (colcount%4 === 0) {
@@ -249,7 +283,7 @@ $(function() {
   }
 
   function formattekniskeanlaeg(data) {
-    coloutput("<div  class='col-md-3'><h3>Nærmeste tekniske anlæg</h3><p><a id='tekniskeanlaeg'>Etableret " + data[0].Etableringsaar + "</a></p></div>");
+    coloutput("<div  class='col-md-3'><h3>Nærmeste tekniske anlæg</h3><p><a id='tekniskeanlaeg'>" + klassifikationskoder[data[0].Klassifikation] + " etableret " + data[0].Etableringsaar + "</a></p></div>");
   }
 
 	function formatpostnummer(data) {
