@@ -448,25 +448,25 @@ $(function() {
     options[antal].clickevent= clickevent('valglandsdel');
     antal++;
 
-    // nærmeste bygning
-    options.push({});
-    options[antal].url= encodeURI("http://dawa-p2.aws.dk/"+"ois/bygninger");
-    options[antal].data= data;
-    options[antal].dataType= dataType;
-    options[antal].jsonp= jsonp;
-    options[antal].format= formatbygning;
-    options[antal].clickevent= clickevent('bygning');
-    antal++;
+    // // nærmeste bygning
+    // options.push({});
+    // options[antal].url= encodeURI("http://dawa-p2.aws.dk/"+"ois/bygninger");
+    // options[antal].data= data;
+    // options[antal].dataType= dataType;
+    // options[antal].jsonp= jsonp;
+    // options[antal].format= formatbygning;
+    // options[antal].clickevent= clickevent('bygning');
+    // antal++;
 
-    // nærmeste bygning
-    options.push({});
-    options[antal].url= encodeURI("http://dawa-p2.aws.dk/"+"ois/tekniskeanlaeg");
-    options[antal].data= data;
-    options[antal].dataType= dataType;
-    options[antal].jsonp= jsonp;
-    options[antal].format= formattekniskeanlaeg;
-    options[antal].clickevent= clickevent('tekniskeanlaeg');
-    antal++;
+    // // nærmeste bygning
+    // options.push({});
+    // options[antal].url= encodeURI("http://dawa-p2.aws.dk/"+"ois/tekniskeanlaeg");
+    // options[antal].data= data;
+    // options[antal].dataType= dataType;
+    // options[antal].jsonp= jsonp;
+    // options[antal].format= formattekniskeanlaeg;
+    // options[antal].clickevent= clickevent('tekniskeanlaeg');
+    // antal++;
 
 		var promises = [];
 		for (var i= 0; i<options.length; i++)
