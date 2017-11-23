@@ -104,8 +104,7 @@ $(function() {
     if (featureData.geometry && featureData.geometry.type==='Point') {
       defaultstyle= defaultpointstyle;
     }
-    else if (featureData.geometry && featureData.geometry.type==='MultiPolygon') {
-
+    else if (featureData.geometry && (featureData.geometry.type==='MultiPolygon' || featureData.geometry.type==='Polygon')) {
       defaultstyle= defaultpolygonstyle; 
     }
     else {
@@ -156,46 +155,87 @@ $(function() {
 		}
 	}
 
-	function bebyggelserclickevent() {
-		return function(data) {
-			for (var i= 0; i<data.length; i++) {
-				$("#"+data[i].type).click(function (i) {
-					return function(e) {
-		  			e.preventDefault();
-				    var mapid=  data[i].type + "map";
-				    if ($('#'+mapid).length!==0) return;
-				    $(event.target ).closest( "div" ).append("<div class='map' id='" + mapid + "'></div>");
-				    var map = L.map(mapid);
-				    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'Map data &copy; OpenStreetMap contributors'});
-		  			osm.addTo(map);
-		  			var marker = L.marker([latitude,longitude]).addTo(map);
-		  			var options= {};
-				    options.data= {format: 'geojson'};
-				    options.url= data[i].href;
-		    		options.dataType= dataType;
-		    		options.jsonp= jsonp;
-				    $.ajax(options)
-				    .then( function ( data ) {
-				      if (data.geometri || data.features && data.features.length === 0) {
-				        alert('Søgning gav intet resultat');
-				        return;
-				      }
-		      		var style=  getDefaultStyle(data);
-				      var geojsonlayer= L.geoJson(data, {style: getDefaultStyle, pointToLayer: pointToLayer(style)});
-				      geojsonlayer.addTo(map);
+  // function bebyggelserclickevent() {
+  //   return function(data) {
+  //     for (var i= 0; i<data.length; i++) {
+  //       $("#"+data[i].type).click(function (i) {
+  //         return function(e) {
+  //           e.preventDefault();
+  //           var mapid=  data[i].type + "map";
+  //           if ($('#'+mapid).length!==0) return;
+  //           $(event.target ).closest( "div" ).append("<div class='map' id='" + mapid + "'></div>");
+  //           var map = L.map(mapid);
+  //           var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'Map data &copy; OpenStreetMap contributors'});
+  //           osm.addTo(map);
+  //           var marker = L.marker([latitude,longitude]).addTo(map);
+  //           var options= {};
+  //           options.data= {format: 'geojson'};
+  //           options.url= data[i].href;
+  //           options.dataType= dataType;
+  //           options.jsonp= jsonp;
+  //           $.ajax(options)
+  //           .then( function ( data ) {
+  //             if (data.geometri || data.features && data.features.length === 0) {
+  //               alert('Søgning gav intet resultat');
+  //               return;
+  //             }
+  //             var style=  getDefaultStyle(data);
+  //             var geojsonlayer= L.geoJson(data, {style: getDefaultStyle, pointToLayer: pointToLayer(style)});
+  //             geojsonlayer.addTo(map);
 
-		      		var layergroup= L.featureGroup([marker,geojsonlayer]);     
-		      		map.fitBounds(layergroup.getBounds());
-				    })
-				    .fail(function( jqXHR, textStatus, errorThrown ) {
-				      alert(errorThrown)
-				    });
-		  			map.setView([latitude,longitude], 13);
-		  		};
-				}(i));
-		  };
-		}
-	}
+  //             var layergroup= L.featureGroup([marker,geojsonlayer]);     
+  //             map.fitBounds(layergroup.getBounds());
+  //           })
+  //           .fail(function( jqXHR, textStatus, errorThrown ) {
+  //             alert(errorThrown)
+  //           });
+  //           map.setView([latitude,longitude], 13);
+  //         };
+  //       }(i));
+  //     };
+  //   }
+  // }
+
+  function stednavneclickevent() {
+    return function(data) {
+      for (var i= 0; i<data.length; i++) {
+        $("#"+data[i].undertype+i).click(function (i) {
+          return function(e) {
+            e.preventDefault();
+            var mapid=  data[i].undertype + i + "map";
+            if ($('#'+mapid).length!==0) return;
+            $(event.target ).closest( "div" ).append("<div class='map' id='" + mapid + "'></div>");
+            var map = L.map(mapid);
+            var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'Map data &copy; OpenStreetMap contributors'});
+            osm.addTo(map);
+            var marker = L.marker([latitude,longitude]).addTo(map);
+            var options= {};
+            options.data= {format: 'geojson'};
+            options.url= data[i].href;
+            options.dataType= dataType;
+            options.jsonp= jsonp;
+            $.ajax(options)
+            .then( function ( data ) {
+              if (data.geometri || data.features && data.features.length === 0) {
+                alert('Søgning gav intet resultat');
+                return;
+              }
+              var style=  getDefaultStyle(data);
+              var geojsonlayer= L.geoJson(data, {style: getDefaultStyle, pointToLayer: pointToLayer(style)});
+              geojsonlayer.addTo(map);
+
+              var layergroup= L.featureGroup([marker,geojsonlayer]);     
+              map.fitBounds(layergroup.getBounds());
+            })
+            .fail(function( jqXHR, textStatus, errorThrown ) {
+              alert(errorThrown)
+            });
+            map.setView([latitude,longitude], 13);
+          };
+        }(i));
+      };
+    }
+  }
 
   var anvendelseskoder= {};
   function initanvendelseskoder() {
@@ -301,11 +341,17 @@ $(function() {
 		coloutput("<div class='col-md-3'><h3>Jordstykke</h3><p><a id='jordstykke'>" + (data.ejerlav.navn?data.ejerlav.navn+" ":"") + data.ejerlav.kode + " " +data.matrikelnr + "</a></p></div>");
 	}
 
-	function formatbebyggelse(data) {
-		for (var i= 0; i<data.length;i++) {
-			coloutput("<div class='col-md-3'><h3>" + capitalizeFirstLetter(data[i].type) + "</h3><p><a id='" + data[i].type + "'>" + data[i].navn + "</a></p></div>");
-		}
-	}
+  // function formatbebyggelse(data) {
+  //   for (var i= 0; i<data.length;i++) {
+  //     coloutput("<div class='col-md-3'><h3>" + capitalizeFirstLetter(data[i].type) + "</h3><p><a id='" + data[i].type + "'>" + data[i].navn + "</a></p></div>");
+  //   }
+  // }
+
+  function formatstednavne(data) {
+    for (var i= 0; i<data.length;i++) {
+      coloutput("<div class='col-md-3'><h3>" + capitalizeFirstLetter(data[i].undertype)+"</h3><p><a id='"+data[i].undertype + i +"'>" + data[i].navn + "</a></p></div>");
+    }
+  }
 
 	function formatdata(titel,id) {
 		return function (data) { coloutput("<div  class='col-md-3'><h3>" + titel + "</h3><p><a id='" + id + "'>" + data.navn + " (" + data.kode + ")" + "</a></p></div>")};
@@ -348,15 +394,15 @@ $(function() {
     options[antal].clickevent= clickevent('postnummer');
     antal++;
 
-    // bebyggelser
-		options.push({});
-    options[antal].url= encodeURI(host+"bebyggelser");
-    options[antal].data= data;
-    options[antal].dataType= dataType;
-    options[antal].jsonp= jsonp;
-    options[antal].format= formatbebyggelse;
-    options[antal].clickevent= bebyggelserclickevent();
-    antal++;
+  //   // bebyggelser
+		// options.push({});
+  //   options[antal].url= encodeURI(host+"bebyggelser");
+  //   options[antal].data= data;
+  //   options[antal].dataType= dataType;
+  //   options[antal].jsonp= jsonp;
+  //   options[antal].format= formatbebyggelse;
+  //   options[antal].clickevent= bebyggelserclickevent();
+  //   antal++;
 
     // jordstykke
 		options.push({});
@@ -446,6 +492,16 @@ $(function() {
     options[antal].jsonp= jsonp;
     options[antal].format= formatvalglandsdel;
     options[antal].clickevent= clickevent('valglandsdel');
+    antal++;
+
+    // stednavne
+    options.push({});
+    options[antal].url= encodeURI(host+"stednavne");
+    options[antal].data= data;
+    options[antal].dataType= dataType;
+    options[antal].jsonp= jsonp;
+    options[antal].format= formatstednavne;
+    options[antal].clickevent= stednavneclickevent();
     antal++;
 
     // // nærmeste bygning
