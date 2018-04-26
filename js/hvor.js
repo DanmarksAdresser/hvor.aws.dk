@@ -3,11 +3,29 @@
 $(function() {
 	$.support.cors= true; //pga. IE
 
-	if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-             .register('./service-worker.js')
-             .then(function() { console.log('Service Worker Registered'); });
+
+  var host= "https://dawa.aws.dk/";
+  let miljø= getQueryVariable('m');
+  if (miljø) {
+    host= host.replace('dawa',miljø); 
+  } 
+
+  function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0; i<vars.length; i++) {
+      var pair = vars[i].split("=");
+      if (pair[0] == variable) {
+        return pair[1];
+      }
+    }
   }
+
+	// if ('serviceWorker' in navigator) {
+ //    navigator.serviceWorker
+ //             .register('./service-worker.js')
+ //             .then(function() { console.log('Service Worker Registered'); });
+ //  }
 
   var output = $("#content");
   var row= null;
@@ -361,8 +379,6 @@ $(function() {
 		var antal= 0;
 		var options= [];
 		var data= {x: x, y: y};
-
-		var host= "https://dawa.aws.dk/";
 
     // nærmeste adresse
 		options.push({});
