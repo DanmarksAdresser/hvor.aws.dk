@@ -217,10 +217,10 @@ $(function() {
   function stednavneclickevent() {
     return function(data) {
       for (var i= 0; i<data.length; i++) {
-        $("#"+data[i].undertype+i).click(function (i) {
+        $("#"+data[i].sted.undertype+i).click(function (i) {
           return function(e) {
             e.preventDefault();
-            var mapid=  data[i].undertype + i + "map";
+            var mapid=  data[i].sted.undertype + i + "map";
             if ($('#'+mapid).length!==0) return;
             $(event.target ).closest( "div" ).append("<div class='map' id='" + mapid + "'></div>");
             var map = L.map(mapid);
@@ -229,7 +229,7 @@ $(function() {
             var marker = L.marker([latitude,longitude]).addTo(map);
             var options= {};
             options.data= {format: 'geojson'};
-            options.url= data[i].href;
+            options.url= data[i].sted.href;
             options.dataType= dataType;
             options.jsonp= jsonp;
             $.ajax(options)
@@ -255,73 +255,6 @@ $(function() {
     }
   }
 
-  var anvendelseskoder= {};
-  function initanvendelseskoder() {
-    anvendelseskoder[110]= "Stuehus til landbrugsejendom";
-    anvendelseskoder[120]= "Fritliggende eenfamilieshus (parcelhus)";
-    anvendelseskoder[130]= "Række-, kæde-, eller dobbelthus (lodret adskillelse mellem enhederne)";
-    anvendelseskoder[140]= "Etageboligbebyggelse (flerfamiliehus, herunder to-familiehus (vandret adskillelse mellem enhederne)";
-    anvendelseskoder[150]= "Kollegium";
-    anvendelseskoder[160]= "Døgninstitution (plejehjem, alderdomshjem, børne- eller ungdomshjem)";
-    anvendelseskoder[190]= "Anden bygning til helårsbeboelse";
-    anvendelseskoder[210]= "Bygning til erhvervsmæssig produktion vedrørende landbrug, gartneri, råstofudvinding o. lign";
-    anvendelseskoder[220]= "Bygning til erhvervsmæssig produktion vedrørende industri, håndværk m.v. (fabrik, værksted o. lign.)";
-    anvendelseskoder[230]= "El-, gas-, vand- eller varmeværk, forbrændingsanstalt m.v.";
-    anvendelseskoder[290]= "Anden bygning til landbrug, industri etc.";
-    anvendelseskoder[310]= "Transport- og garageanlæg (fragtmandshal, lufthavnsbygning, banegårdsbygning, parkeringshus). Garage med plads til et eller to køretøjer registreres med anvendelseskode 910";
-    anvendelseskoder[320]= "Bygning til kontor, handel, lager, herunder offentlig administration";
-    anvendelseskoder[330]= "Bygning til hotel, restaurant, vaskeri, frisør og anden servicevirksomhed";
-    anvendelseskoder[390]= "Anden bygning til transport, handel etc.";
-    anvendelseskoder[410]= "Bygning til biograf, teater, erhvervsmæssig udstilling, bibliotek, museum, kirke o. lign.";
-    anvendelseskoder[420]= "Bygning til undervisning og forskning (skole, gymnasium, forskningslaboratorium o. lign.)";
-    anvendelseskoder[430]= "Bygning til hospital, sygehjem, fødeklinik o. lign.";
-    anvendelseskoder[440]= "Bygning til daginstitution";
-    anvendelseskoder[490]= "Bygning til anden institution, herunder kaserne, fængsel o. lign.";
-    anvendelseskoder[510]= "Sommerhus";
-    anvendelseskoder[520]= "Bygning til ferieformål m.v., bortset fra sommerhus (feriekoloni, vandrehjem o. lign.)";
-    anvendelseskoder[530]= "Bygning i forbindelse med idrætsudøvelse (klubhus, idrætshal, svømmehal o. lign.)";
-    anvendelseskoder[540]= "Kolonihavehus";
-    anvendelseskoder[590]= "Anden bygning til fritidsformål";
-    anvendelseskoder[910]= "Garage med plads til et eller to køretøjer";
-    anvendelseskoder[920]= "Carport";
-    anvendelseskoder[930]= "Udhus";
-  }
-  initanvendelseskoder();
-
-  var klassifikationskoder= {};
-  function initklassifikationskoder() {
-    klassifikationskoder[1110]= "Tank (Produkt på væskeform)";
-    klassifikationskoder[1120]= "Silo (Produkt på fast form)";
-    klassifikationskoder[1130]= "Gasbeholder (Produkt på gasform)";
-    klassifikationskoder[1140]= "Affaldsbeholder";
-    klassifikationskoder[1210]= "Vindmølle (elproducerende)";
-    klassifikationskoder[1220]= "Slanger til jordvarme";
-    klassifikationskoder[1230]= "Solvarme-/ solcelleanlæg";
-    klassifikationskoder[1240]= "Nødstrømsforsyningsanlæg";
-    klassifikationskoder[1250]= "Transformerstation";
-    klassifikationskoder[1260]= "Elskab";
-    klassifikationskoder[1265]= "Naturgasfyr";
-    klassifikationskoder[1270]= "Andet energiproducerende eller - distribuerende anlæg";
-    klassifikationskoder[1310]= "Vandtårn";
-    klassifikationskoder[1320]= "Pumpestation";
-    klassifikationskoder[1330]= "Swimmingpool";
-    klassifikationskoder[1340]= "Private rensningsanlæg f.eks. pileanlæg, nedsivningsanlæg";
-    klassifikationskoder[1350]= "Offentlige rensningsanlæg";
-    klassifikationskoder[1360]= "Regnvandsanlæg";
-    klassifikationskoder[1905]= "Legeplads";
-    klassifikationskoder[1910]= "Teknikhus";
-    klassifikationskoder[1915]= "Døgnpostboks";
-    klassifikationskoder[1920]= "Køleanlæg (herunder aircondition)";
-    klassifikationskoder[1925]= "Kunstværk (springvand, mindesmærker m.v.)";
-    klassifikationskoder[1930]= "Sirene / mast med sirene";
-    klassifikationskoder[1935]= "Skilt";
-    klassifikationskoder[1940]= "Antenne / mast fx tv, radio- og telekommunikation";
-    klassifikationskoder[1945]= "Dambrug";
-    klassifikationskoder[1950]= "Møddingsanlæg";
-    klassifikationskoder[1955]= "Andet teknisk anlæg";
-  }
-  initklassifikationskoder();
-
 	var colcount= 0;
 	function coloutput(tekst) {		
   	if (colcount%4 === 0) {
@@ -344,9 +277,23 @@ $(function() {
     coloutput("<div  class='col-md-3'><h3>Nærmeste tekniske anlæg</h3><p><a id='tekniskeanlaeg'>" + klassifikationskoder[data[0].Klassifikation] + " etableret " + data[0].Etableringsaar + "</a></p></div>");
   }
 
-	function formatpostnummer(data) {
-		coloutput("<div  class='col-md-3'><h3>Postnummer</h3><p><a id='postnummer'>" + data.nr + " " + data.navn + "</a></p></div>");
-	}
+  function formatnavngivenvej(data) {
+    coloutput("<div  class='col-md-3'><h3>Nærmeste vej</h3><p><a id='navngivneveje'>" + data[0].navn + "</a></p></div>");
+  }
+
+  function formatsupplerendebynavne(data) {
+    if (data.length !== 0) {
+      coloutput("<div  class='col-md-3'><h3>Supplerende bynavn</h3><p><a id='supplerendebynavne'>" + data[0].navn + "</a></p></div>");
+    }
+  }
+
+  function formatpostnummer(data) {
+    coloutput("<div  class='col-md-3'><h3>Postnummer</h3><p><a id='postnummer'>" + data.nr + " " + data.navn + "</a></p></div>");
+  }
+
+  function formatafstemningsområde(titel,id) {
+    return function (data) { coloutput("<div  class='col-md-3'><h3>Afstemningsområde</h3><p><a id='afstemningsområde'>" + data.navn + " (" + data.nummer + ")" + "</a></p></div>")};
+  }
 	function formatstorkreds(data) {
 		coloutput("<div class='col-md-3'><h3>Storkreds</h3><p><a id='storkreds'>" + data.navn + " (" + data.nummer + ")" + "</a></p></div>");
 	}
@@ -356,8 +303,8 @@ $(function() {
 	}
 
 	function formatjordstykke(data) {
-		coloutput("<div class='col-md-3'><h3>Jordstykke</h3><p><a id='jordstykke'>" + (data.ejerlav.navn?data.ejerlav.navn+" ":"") + data.ejerlav.kode + " " +data.matrikelnr + "</a></p></div>");
-	}
+		coloutput("<div class='col-md-3'><h3>Jordstykke</h3><p><a id='jordstykke'>" + data.matrikelnr + " " + (data.ejerlav.navn?data.ejerlav.navn+" ":"") + "(" + data.ejerlav.kode + ")" + "</a></p></div>");
+  }
 
   // function formatbebyggelse(data) {
   //   for (var i= 0; i<data.length;i++) {
@@ -367,13 +314,17 @@ $(function() {
 
   function formatstednavne(data) {
     for (var i= 0; i<data.length;i++) {
-      coloutput("<div class='col-md-3'><h3>" + capitalizeFirstLetter(data[i].undertype)+"</h3><p><a id='"+data[i].undertype + i +"'>" + data[i].navn + "</a></p></div>");
+      coloutput("<div class='col-md-3'><h3>" + capitalizeFirstLetter(data[i].sted.undertype)+"</h3><p><a id='"+data[i].sted.undertype + i +"'>" + data[i].navn + "</a></p></div>");
     }
   }
 
-	function formatdata(titel,id) {
-		return function (data) { coloutput("<div  class='col-md-3'><h3>" + titel + "</h3><p><a id='" + id + "'>" + data.navn + " (" + data.kode + ")" + "</a></p></div>")};
-	}
+  function formatdata(titel,id) {
+    return function (data) { coloutput("<div  class='col-md-3'><h3>" + titel + "</h3><p><a id='" + id + "'>" + data.navn + " (" + data.kode + ")" + "</a></p></div>")};
+  }
+
+  function formatarraydata(titel,id) {
+    return function (data) { coloutput("<div  class='col-md-3'><h3>" + titel + "</h3><p><a id='" + id + "'>" + data[0].navn + " (" + data[0].kode + ")" + "</a></p></div>")};
+  }
 
 	function visdata(x,y) {
 		var antal= 0;
@@ -390,14 +341,34 @@ $(function() {
     options[antal].clickevent= clickevent('adresse');
     antal++;
 
+    // nærmeste navngivne vej
+    options.push({});
+    options[antal].url= encodeURI(host+"navngivneveje");
+    options[antal].data= data;
+    options[antal].dataType= dataType;
+    options[antal].jsonp= jsonp;
+    options[antal].format= formatnavngivenvej;
+    options[antal].clickevent= clickevent('navngivneveje');
+    antal++;
+
     // nærmeste vejstykke
-		options.push({});
+    options.push({});
     options[antal].url= encodeURI(host+"vejstykker/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
-    options[antal].format= formatdata("Nærmeste vej", "vejstykke");
+    options[antal].format= formatdata("Nærmeste vejstykke", "vejstykke");
     options[antal].clickevent= clickevent('vejstykke');
+    antal++;
+
+    // supplerende bynavn
+    options.push({});
+    options[antal].url= encodeURI(host+"supplerendebynavne2");
+    options[antal].data= data;
+    options[antal].dataType= dataType;
+    options[antal].jsonp= jsonp;
+    options[antal].format= formatsupplerendebynavne;
+    options[antal].clickevent= clickevent('supplerendebynavne');
     antal++;
 
     // postnummer
@@ -428,6 +399,16 @@ $(function() {
     options[antal].jsonp= jsonp;
     options[antal].format= formatjordstykke;
     options[antal].clickevent= clickevent('jordstykke');
+    antal++;
+
+    // nærmeste vejstykke
+    options.push({});
+    options[antal].url= encodeURI(host+"ejerlav");
+    options[antal].data= data;
+    options[antal].dataType= dataType;
+    options[antal].jsonp= jsonp;
+    options[antal].format= formatarraydata("Ejerlav", "ejerlav");
+    options[antal].clickevent= clickevent('ejerlav');
     antal++;
 
     // sogn
@@ -481,7 +462,17 @@ $(function() {
     antal++;
 
     // opstillingskreds
-		options.push({});
+    options.push({});
+    options[antal].url= encodeURI(host+"afstemningsomraader/reverse");
+    options[antal].data= data;
+    options[antal].dataType= dataType;
+    options[antal].jsonp= jsonp;
+    options[antal].format= formatafstemningsområde("Afstemningsområde", 'afstemningsområde');
+    options[antal].clickevent= clickevent('afstemningsområde');
+    antal++;
+
+    // opstillingskreds
+    options.push({});
     options[antal].url= encodeURI(host+"opstillingskredse/reverse");
     options[antal].data= data;
     options[antal].dataType= dataType;
@@ -512,7 +503,7 @@ $(function() {
 
     // stednavne
     options.push({});
-    options[antal].url= encodeURI(host+"stednavne");
+    options[antal].url= encodeURI(host+"stednavne2");
     options[antal].data= data;
     options[antal].dataType= dataType;
     options[antal].jsonp= jsonp;
@@ -543,25 +534,36 @@ $(function() {
 		var promises = [];
 		for (var i= 0; i<options.length; i++)
     	promises.push($.ajax(options[i]));
-    begrænssamtidige(promises,0,10);
 
-    function begrænssamtidige(promises,start,længde) {
-      if (start >= promises.length) {        
-        $('.loader').hide();
-        return;
-      }
-      var l= (promises.length-start<længde?promises.length-start:længde); 
-      var subpromises= promises.slice(start,start+l);
-  	  $.when.apply($, subpromises).then(function() {
-  	    for (var i = 0; i < subpromises.length; i++) {
-  	      options[i+start].format(arguments[i][0]);
-  	      options[i+start].clickevent(arguments[i][0]);
-  	    } 
-        begrænssamtidige(promises,start+længde,længde);
-  	  }, function() {
-        infoout("<p>Kald til DAWA fejlede: " + arguments[1] + "  "  + arguments[2] + "</p>");
-  	  });
-    }
+    $.when.apply($, promises).then(function() {
+      $('.loader').hide();
+      for (var i = 0; i < promises.length; i++) {
+        options[i].format(arguments[i][0]);
+        options[i].clickevent(arguments[i][0]);
+      } 
+    }, function() {
+      infoout("<p>Kald til DAWA fejlede: " + arguments[1] + "  "  + arguments[2] + "</p>");
+    });
+
+    // begrænssamtidige(promises,0,10);
+
+    // function begrænssamtidige(promises,start,længde) {
+    //   if (start >= promises.length) {        
+    //     $('.loader').hide();
+    //     return;
+    //   }
+    //   var l= (promises.length-start<længde?promises.length-start:længde); 
+    //   var subpromises= promises.slice(start,start+l);
+  	 //  $.when.apply($, subpromises).then(function() {
+  	 //    for (var i = 0; i < subpromises.length; i++) {
+  	 //      options[i+start].format(arguments[i][0]);
+  	 //      options[i+start].clickevent(arguments[i][0]);
+  	 //    } 
+    //     begrænssamtidige(promises,start+længde,længde);
+  	 //  }, function() {
+    //     infoout("<p>Kald til DAWA fejlede: " + arguments[1] + "  "  + arguments[2] + "</p>");
+  	 //  });
+    // }
 
 	}
 
