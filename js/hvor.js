@@ -160,6 +160,9 @@ $(function() {
 		      }
       		var style=  getDefaultStyle(data);
 		      var geojsonlayer= L.geoJson(data, {style: getDefaultStyle, pointToLayer: pointToLayer(style)});
+          geojsonlayer.on({
+            click: function (e) {window.location.href= options.url.replace('dawa','info');}
+          });
 		      geojsonlayer.addTo(map);
 
       		var layergroup= L.featureGroup([marker,geojsonlayer]);     
@@ -240,6 +243,9 @@ $(function() {
               }
               var style=  getDefaultStyle(data);
               var geojsonlayer= L.geoJson(data, {style: getDefaultStyle, pointToLayer: pointToLayer(style)});
+              geojsonlayer.on({
+                click: function (e) {window.location.href= options.url.replace('dawa','info');}
+              });
               geojsonlayer.addTo(map);
 
               var layergroup= L.featureGroup([marker,geojsonlayer]);     
